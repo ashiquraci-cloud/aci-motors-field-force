@@ -1,0 +1,14 @@
+-- Seed admin: password = staff ID, hashed with SHA-256.
+-- Get hash: echo -n 'YourStaffID' | sha256sum
+-- Then run:
+-- INSERT INTO profiles(name,email,staff_id_hash,role,business)
+-- VALUES ('Super Admin','admin@acimotors.com','<sha256-hex>','admin','Foton')
+-- ON CONFLICT(email) DO UPDATE SET staff_id_hash=EXCLUDED.staff_id_hash, role='admin';
+
+-- Demo officer + file (replace officer id after creating users):
+-- INSERT INTO files(code,sale_type,reg_type,business,officer_id,customer_name,vehicle_model,status,documents,steps)
+-- VALUES ('H00233','credit','new','Foton',(select id from profiles where role='officer' limit 1),
+--  'Rahim Uddin','Tata 1615',
+--  'incomplete',
+--  '{"invoice":{"path":"demo"},"chalan":{"path":"demo"}}',
+--  '{"file_received":{"done":true,"date":"2026-01-01"}}');
